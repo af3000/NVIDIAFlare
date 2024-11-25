@@ -243,15 +243,15 @@ class LauncherExecutor(TaskExchanger):
             abort_signal.trigger("launch task failed")
             return False
 
-        self.log_info(fl_ctx, f"launcher launch_task for ({task_name}) succeed.")
+        self.log_info(fl_ctx, f"Launcher successfully launched task ({task_name}).")
         # wait for external execution to set up their pipe_handler
         setup_success = self._wait_external_setup(task_name, fl_ctx, abort_signal)
         if not setup_success:
-            error = f"External execution set up for task ({task_name}) failed."
+            error = f"Failed external setup for task ({task_name})."
             self.log_error(fl_ctx, error)
             abort_signal.trigger(error)
             return False
-        self.log_info(fl_ctx, f"External execution set up for task ({task_name}) succeed.")
+        self.log_info(fl_ctx, f"External setup for task ({task_name}) succeeded.")
         return True
 
     def _execute_launcher_method_in_thread_executor(self, method_name: str, **kwargs) -> Any:
